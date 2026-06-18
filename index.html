@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escape Room JS — La Cámara de los Cinco Desafíos | DTW135</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <h1>Escape Room JS — La Cámara de los Cinco Desafíos</h1>
+    <p class="subtitle">DTW135 · Desarrollo y Técnicas de Aplicaciones Web · Ciclo I 2026</p>
+  </header>
+
+  <!-- BARRA DE NIVELES -->
+  <nav class="levels-nav">
+    <span class="level-indicator active" id="nav-nivel1">Nivel 1</span>
+    <span class="level-indicator"        id="nav-nivel2">Nivel 2</span>
+    <span class="level-indicator"        id="nav-nivel3">Nivel 3</span>
+    <span class="level-indicator"        id="nav-nivel4">Nivel 4</span>
+    <span class="level-indicator"        id="nav-nivel5">Nivel 5</span>
+  </nav>
+
+  <main class="main-container">
+
+    <!-- ============================================================
+         NIVEL 1 — EL GUARDIÁN DE LA UBICACIÓN
+    ============================================================ -->
+    <section class="nivel-card" id="nivel1-card">
+      <div class="nivel-header">
+        <span class="nivel-num">01</span>
+        <div class="nivel-title">
+          <h2>El Guardián de la Ubicación</h2>
+          <p class="pts">Geolocalización — 15 puntos</p>
+        </div>
+        <span class="nivel-badge badge-active">Activo</span>
+      </div>
+
+      <div class="nivel-body">
+        <p class="desc">
+          Obtén tu ubicación actual para activar el sistema. Acepta el permiso de
+          geolocalización cuando el navegador lo solicite.
+        </p>
+
+        <button class="btn-primary-custom" id="btn-ubicacion">
+          Obtener ubicación
+        </button>
+
+        <div id="datos-ubicacion" style="display:none; margin-top:1.1rem;">
+          <div class="data-row">
+            <span class="data-label">Latitud</span>
+            <span class="data-value" id="dato-lat">—</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Longitud</span>
+            <span class="data-value" id="dato-lon">—</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Precisión</span>
+            <span class="data-value" id="dato-acc">—</span>
+          </div>
+        </div>
+
+        <div class="alert-custom" id="alerta-n1"></div>
+
+        <button class="btn-success-custom mt-3" id="btn-avanzar-n1" style="display:none;">
+          Avanzar al nivel 2 →
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 2 — EL CARTÓGRAFO PERDIDO
+    ============================================================ -->
+    <section class="nivel-card locked" id="nivel2-card">
+      <div class="nivel-header">
+        <span class="nivel-num">02</span>
+        <div class="nivel-title">
+          <h2>El Cartógrafo Perdido</h2>
+          <p class="pts">Canvas API — 15 puntos</p>
+        </div>
+        <span class="nivel-badge badge-locked">🔒 Bloqueado</span>
+      </div>
+
+      <div class="nivel-body">
+        <p class="desc">
+          Dibuja un mapa simplificado usando Canvas 2D. Marca la posición
+          obtenida en el nivel anterior e incluye las figuras geométricas requeridas.
+        </p>
+
+        <button class="btn-primary-custom mb-3" id="btn-dibujar-mapa">
+          Dibujar mapa
+        </button>
+
+        <div style="overflow-x:auto;">
+          <canvas id="mapa-canvas" width="580" height="300"
+            aria-label="Mapa simplificado de El Salvador"></canvas>
+        </div>
+
+        <div class="alert-custom" id="alerta-n2"></div>
+
+        <button class="btn-success-custom mt-3" id="btn-avanzar-n2" style="display:none;">
+          Avanzar al nivel 3 →
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 3 — LA EVIDENCIA DEL EXPLORADOR
+    ============================================================ -->
+    <section class="nivel-card locked" id="nivel3-card">
+      <div class="nivel-header">
+        <span class="nivel-num">03</span>
+        <div class="nivel-title">
+          <h2>La Evidencia del Explorador</h2>
+          <p class="pts">Cámara y LocalStorage — 20 puntos</p>
+        </div>
+        <span class="nivel-badge badge-locked">🔒 Bloqueado</span>
+      </div>
+
+      <div class="nivel-body">
+        <p class="desc">
+          Accede a la cámara, muestra el video en tiempo real, captura una fotografía
+          y guárdala en LocalStorage. Acepta el permiso de cámara cuando se solicite.
+        </p>
+
+        <div class="d-flex gap-2 flex-wrap mb-2">
+          <button class="btn-primary-custom" id="btn-abrir-camara">Abrir cámara</button>
+          <button class="btn-primary-custom" id="btn-capturar" disabled>Capturar foto</button>
+          <button class="btn-danger-custom"  id="btn-cerrar-camara" style="display:none;">Cerrar cámara</button>
+        </div>
+
+        <video id="video-stream" autoplay playsinline
+          style="display:none;" aria-label="Video de la cámara en tiempo real"></video>
+
+        <img id="foto-capturada" alt="Foto capturada" />
+
+        <div class="alert-custom" id="alerta-n3"></div>
+
+        <button class="btn-success-custom mt-3" id="btn-avanzar-n3" style="display:none;">
+          Avanzar al nivel 4 →
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 4 — EL NÚCLEO DE PROCESAMIENTO
+    ============================================================ -->
+    <section class="nivel-card locked" id="nivel4-card">
+      <div class="nivel-header">
+        <span class="nivel-num">04</span>
+        <div class="nivel-title">
+          <h2>El Núcleo de Procesamiento</h2>
+          <p class="pts">Web Worker · 20,000 registros — 25 puntos</p>
+        </div>
+        <span class="nivel-badge badge-locked">🔒 Bloqueado</span>
+      </div>
+
+      <div class="nivel-body">
+        <p class="desc">
+          Se generarán 20,000 registros de temperatura y humedad. Un Web Worker
+          calculará los promedios, máximos y mínimos sin bloquear la interfaz.
+          La barra de progreso se actualiza mientras trabaja el Worker.
+        </p>
+
+        <button class="btn-primary-custom mb-3" id="btn-procesar-n4">
+          Procesar datos
+        </button>
+
+        <!-- Barra de progreso -->
+        <div class="progress-wrap" id="progreso-n4">
+          <p class="progress-label" id="label-n4">Procesando... 0%</p>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="barra-n4"></div>
+          </div>
+        </div>
+
+        <!-- Card Bootstrap con estadísticas -->
+        <div id="stats-n4" class="card mt-3" style="display:none; border-color: var(--border);">
+          <div class="card-header" style="background:var(--bg-panel); font-size:0.8rem; font-weight:600; color:var(--text-main);">
+            Resultados — 20,000 registros procesados
+          </div>
+          <div class="card-body">
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-val" id="n4-temp-prom">—</span>
+                <span class="stat-name">Temp. promedio</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n4-temp-max">—</span>
+                <span class="stat-name">Temp. máxima</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n4-temp-min">—</span>
+                <span class="stat-name">Temp. mínima</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n4-hum-prom">—</span>
+                <span class="stat-name">Humedad promedio</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n4-hum-max">—</span>
+                <span class="stat-name">Humedad máxima</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n4-hum-min">—</span>
+                <span class="stat-name">Humedad mínima</span>
+              </div>
+            </div>
+            <hr class="section-divider" />
+            <div class="data-row">
+              <span class="data-label">Total registros</span>
+              <span class="data-value" id="n4-total">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-custom" id="alerta-n4"></div>
+
+        <button class="btn-success-custom mt-3" id="btn-avanzar-n4" style="display:none;">
+          Avanzar al nivel 5 →
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 5 — EL PORTAL CUÁNTICO
+    ============================================================ -->
+    <section class="nivel-card locked" id="nivel5-card">
+      <div class="nivel-header">
+        <span class="nivel-num">05</span>
+        <div class="nivel-title">
+          <h2>El Portal Cuántico</h2>
+          <p class="pts">Web Worker · 250,000 registros · Exportar JSON — 25 puntos</p>
+        </div>
+        <span class="nivel-badge badge-locked">🔒 Bloqueado</span>
+      </div>
+
+      <div class="nivel-body">
+        <p class="desc">
+          Se generarán 250,000 registros de temperatura, humedad y presión, incluyendo
+          valores negativos aleatorios. El Worker filtrará los valores negativos,
+          calculará estadísticas y permitirá exportar un JSON con los resultados.
+        </p>
+
+        <button class="btn-primary-custom mb-3" id="btn-procesar-n5">
+          Procesar 250,000 registros
+        </button>
+
+        <!-- Barra de progreso -->
+        <div class="progress-wrap" id="progreso-n5">
+          <p class="progress-label" id="label-n5">Procesando... 0%</p>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="barra-n5"></div>
+          </div>
+        </div>
+
+        <!-- Card Bootstrap con estadísticas -->
+        <div id="stats-n5" class="card mt-3" style="display:none; border-color: var(--border);">
+          <div class="card-header" style="background:var(--bg-panel); font-size:0.8rem; font-weight:600; color:var(--text-main);">
+            Resultados — 250,000 registros procesados
+          </div>
+          <div class="card-body">
+            <div class="stats-grid mb-3">
+              <div class="stat-box">
+                <span class="stat-val" id="n5-validos">—</span>
+                <span class="stat-name">Registros válidos</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n5-descartados" style="color:var(--accent2)">—</span>
+                <span class="stat-name">Descartados (negativos)</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" id="n5-promedio">—</span>
+                <span class="stat-name">Promedio general</span>
+              </div>
+            </div>
+            <hr class="section-divider" />
+            <div class="row g-3">
+              <div class="col-md-6">
+                <p style="font-size:0.78rem; font-weight:600; color:var(--text-dim); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.3px;">
+                  Top 10 temperaturas
+                </p>
+                <ul class="top-list" id="n5-top-temp"></ul>
+              </div>
+              <div class="col-md-6">
+                <p style="font-size:0.78rem; font-weight:600; color:var(--text-dim); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.3px;">
+                  Top 10 presiones
+                </p>
+                <ul class="top-list" id="n5-top-presion"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-custom" id="alerta-n5"></div>
+
+        <div class="d-flex gap-2 flex-wrap mt-3">
+          <button class="btn-primary-custom" id="btn-exportar-json" style="display:none;">
+            Exportar JSON
+          </button>
+          <button class="btn-success-custom" id="btn-avanzar-n5" style="display:none;">
+            Finalizar nivel 5 ✓
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PANEL DE VICTORIA
+    ============================================================ -->
+    <section id="victoria-panel" style="display:none;">
+      <h2>¡Felicidades! Acceso restaurado</h2>
+      <p>Completaste los cinco niveles correctamente. El sistema de la ciudad inteligente está operativo.</p>
+      <p style="margin-top:0.5rem; font-size:0.75rem;">DTW135 · Examen Parcial #3 · Ciclo I 2026</p>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    DTW135 — Desarrollo y Técnicas de Aplicaciones Web · Ciclo I 2026 · Facultad Multidisciplinaria de Occidente · UES
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/level1-geolocation.js"></script>
+  <script src="js/level2-canvas.js"></script>
+  <script src="js/level3-camera.js"></script>
+  <script src="js/level4-processing.js"></script>
+  <script src="js/level5-quantum.js"></script>
+  <script src="js/export-json.js"></script>
+
+
+  <script src="js/app.js"></script>
+
+</body>
+</html>
