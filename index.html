@@ -4,19 +4,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Escape Room JS — La Cámara de los Cinco Desafíos | DTW135</title>
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect width="64" height="64" rx="14" fill="%230f172a"/%3E%3Cpath d="M20 29h24v22H20z" fill="%2338bdf8"/%3E%3Cpath d="M24 29v-7a8 8 0 0 1 16 0v7" fill="none" stroke="%23fff" stroke-width="5" stroke-linecap="round"/%3E%3Ccircle cx="32" cy="40" r="4" fill="%23facc15"/%3E%3C/svg%3E' />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
+  <!-- PANTALLA INICIAL -->
+  <section id="intro-screen" class="intro-screen">
+    <div class="intro-panel">
+      <div class="intro-kicker">DTW135 · Examen Parcial #3</div>
+
+      <h1>Escape Room JS</h1>
+      <h2>La Cámara de los Cinco Desafíos</h2>
+
+      <p class="intro-desc">
+        La humanidad ha perdido acceso a una base de datos crítica para el funcionamiento
+        de una ciudad inteligente. Para restaurar el sistema, deberás superar cinco niveles
+        consecutivos en este escape room.
+      </p>
+
+      <div class="intro-team">
+        <h3>Integrantes</h3>
+        <div class="team-grid">
+          <div class="team-member">
+            <strong>Bryan Ernesto Lemus Pineda</strong>
+            <span>LP21019</span>
+          </div>
+          <div class="team-member">
+            <strong>Jeffrey Jabes Juarez Mangandi</strong>
+            <span>JM21008</span>
+          </div>
+          <div class="team-member">
+            <strong>Luis Eduardo Molina Caceres</strong>
+            <span>MC23015</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro-levels">
+        <div class="intro-level intro-l1">
+          <span>01</span>
+          <strong>Ubicación</strong>
+          <small>Geolocation API</small>
+        </div>
+
+        <div class="intro-level intro-l2">
+          <span>02</span>
+          <strong>Mapa</strong>
+          <small>Canvas 2D</small>
+        </div>
+
+        <div class="intro-level intro-l3">
+          <span>03</span>
+          <strong>Evidencia</strong>
+          <small>Cámara + LocalStorage</small>
+        </div>
+
+        <div class="intro-level intro-l4">
+          <span>04</span>
+          <strong>Núcleo</strong>
+          <small>Worker + 20,000 datos</small>
+        </div>
+
+        <div class="intro-level intro-l5">
+          <span>05</span>
+          <strong>Portal</strong>
+          <small>Worker + 250,000 datos</small>
+        </div>
+      </div>
+
+      <button id="btn-iniciar-escape" class="intro-btn">
+        Iniciar Escape Room →
+      </button>
+
+      <p class="intro-note">
+        Debes completar cada nivel para desbloquear el siguiente.
+      </p>
+    </div>
+  </section>
+
   <!-- HEADER -->
-  <header class="app-header">
+  <header class="app-header escape-app-content app-hidden">
     <h1>Escape Room JS — La Cámara de los Cinco Desafíos</h1>
     <p class="subtitle">DTW135 · Desarrollo y Técnicas de Aplicaciones Web · Ciclo I 2026</p>
   </header>
 
   <!-- BARRA DE NIVELES -->
-  <nav class="levels-nav">
+  <nav class="levels-nav escape-app-content app-hidden">
     <span class="level-indicator active" id="nav-nivel1">Nivel 1</span>
     <span class="level-indicator"        id="nav-nivel2">Nivel 2</span>
     <span class="level-indicator"        id="nav-nivel3">Nivel 3</span>
@@ -24,12 +99,10 @@
     <span class="level-indicator"        id="nav-nivel5">Nivel 5</span>
   </nav>
 
-  <main class="main-container">
+  <main class="main-container escape-app-content app-hidden">
 
-    <!-- ============================================================
-         NIVEL 1 — EL GUARDIÁN DE LA UBICACIÓN
-    ============================================================ -->
-    <section class="nivel-card" id="nivel1-card">
+    <!-- NIVEL 1 — EL GUARDIÁN DE LA UBICACIÓN -->
+    <section class="nivel-card level-1" id="nivel1-card">
       <div class="nivel-header">
         <span class="nivel-num">01</span>
         <div class="nivel-title">
@@ -72,10 +145,8 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         NIVEL 2 — EL CARTÓGRAFO PERDIDO
-    ============================================================ -->
-    <section class="nivel-card locked" id="nivel2-card">
+    <!-- NIVEL 2 — EL CARTÓGRAFO PERDIDO -->
+    <section class="nivel-card locked level-2" id="nivel2-card">
       <div class="nivel-header">
         <span class="nivel-num">02</span>
         <div class="nivel-title">
@@ -108,10 +179,8 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         NIVEL 3 — LA EVIDENCIA DEL EXPLORADOR
-    ============================================================ -->
-    <section class="nivel-card locked" id="nivel3-card">
+    <!-- NIVEL 3 — LA EVIDENCIA DEL EXPLORADOR -->
+    <section class="nivel-card locked level-3" id="nivel3-card">
       <div class="nivel-header">
         <span class="nivel-num">03</span>
         <div class="nivel-title">
@@ -146,10 +215,8 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         NIVEL 4 — EL NÚCLEO DE PROCESAMIENTO
-    ============================================================ -->
-    <section class="nivel-card locked" id="nivel4-card">
+    <!-- NIVEL 4 — EL NÚCLEO DE PROCESAMIENTO -->
+    <section class="nivel-card locked level-4" id="nivel4-card">
       <div class="nivel-header">
         <span class="nivel-num">04</span>
         <div class="nivel-title">
@@ -170,7 +237,6 @@
           Procesar datos
         </button>
 
-        <!-- Barra de progreso -->
         <div class="progress-wrap" id="progreso-n4">
           <p class="progress-label" id="label-n4">Procesando... 0%</p>
           <div class="progress-bar-bg">
@@ -178,7 +244,6 @@
           </div>
         </div>
 
-        <!-- Card Bootstrap con estadísticas -->
         <div id="stats-n4" class="card mt-3" style="display:none; border-color: var(--border);">
           <div class="card-header" style="background:var(--bg-panel); font-size:0.8rem; font-weight:600; color:var(--text-main);">
             Resultados — 20,000 registros procesados
@@ -226,10 +291,8 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         NIVEL 5 — EL PORTAL CUÁNTICO
-    ============================================================ -->
-    <section class="nivel-card locked" id="nivel5-card">
+    <!-- NIVEL 5 — EL PORTAL CUÁNTICO -->
+    <section class="nivel-card locked level-5" id="nivel5-card">
       <div class="nivel-header">
         <span class="nivel-num">05</span>
         <div class="nivel-title">
@@ -250,7 +313,6 @@
           Procesar 250,000 registros
         </button>
 
-        <!-- Barra de progreso -->
         <div class="progress-wrap" id="progreso-n5">
           <p class="progress-label" id="label-n5">Procesando... 0%</p>
           <div class="progress-bar-bg">
@@ -258,7 +320,6 @@
           </div>
         </div>
 
-        <!-- Card Bootstrap con estadísticas -->
         <div id="stats-n5" class="card mt-3" style="display:none; border-color: var(--border);">
           <div class="card-header" style="background:var(--bg-panel); font-size:0.8rem; font-weight:600; color:var(--text-main);">
             Resultados — 250,000 registros procesados
@@ -309,9 +370,7 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         PANEL DE VICTORIA
-    ============================================================ -->
+    <!-- PANEL DE VICTORIA -->
     <section id="victoria-panel" style="display:none;">
       <h2>¡Felicidades! Acceso restaurado</h2>
       <p>Completaste los cinco niveles correctamente. El sistema de la ciudad inteligente está operativo.</p>
@@ -320,7 +379,7 @@
 
   </main>
 
-  <footer class="app-footer">
+  <footer class="app-footer escape-app-content app-hidden">
     DTW135 — Desarrollo y Técnicas de Aplicaciones Web · Ciclo I 2026 · Facultad Multidisciplinaria de Occidente · UES
   </footer>
 
@@ -334,8 +393,6 @@
   <script src="js/level4-processing.js"></script>
   <script src="js/level5-quantum.js"></script>
   <script src="js/export-json.js"></script>
-
-
   <script src="js/app.js"></script>
 
 </body>
